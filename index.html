@@ -87,14 +87,10 @@
   @media (max-width: 760px) {
     /* убираем лишний воздух сверху/снизу и между блоками */
     .hero { padding-top: 2.75rem !important; padding-bottom: 3.25rem !important; }
-    .hero-inner { gap: 18px !important; }
+    .hero-inner { gap: 20px !important; }
     /* информационные пилюли — на всю ширину, текст не дробится в столбики */
     .hero-badges { flex-direction: column; width: 100%; gap: 8px; }
     .hero-badge { width: 100%; justify-content: center; }
-    /* карточки «Дата старта» и «Длительность» — в два ряда рядом */
-    .hero-stats { display: grid !important; grid-template-columns: 1fr 1fr; gap: 10px !important; width: 100%; margin-top: 2px !important; }
-    .hero-stat { padding: 12px 10px !important; }
-    .hero-stat-num { font-size: 1.5rem !important; }
   }
 
   /* ============ ТАЙМЕР ============ */
@@ -154,7 +150,14 @@
     <div style="position:absolute; left:50%; top:8%; width:60%; height:60%; transform:translateX(-50%); background:radial-gradient(ellipse at center, rgba(199,168,107,.14), transparent 70%); filter:blur(20px); pointer-events:none;"></div>
 
     <div class="hero-inner" style="position:relative; max-width:920px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:26px;">
-      <span class="pill pill--onDark">Авторский курс</span>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+        <span class="pill pill--onDark">Авторский курс</span>
+        <p class="hero-meta" style="margin:0; font-size:.92rem; font-weight:300; letter-spacing:.02em; color:var(--text-on-dark-muted);">
+          Старт <strong style="color:var(--gold-500); font-weight:600;">20 июля</strong>
+          <span style="opacity:.45; margin:0 7px;">·</span>
+          Длительность <strong style="color:var(--gold-500); font-weight:600;">4,5–5 мес.</strong>
+        </p>
+      </div>
 
       <h1 style="font-family:var(--font-display); font-weight:700; font-size:clamp(2.8rem,6.5vw,5.25rem); line-height:1.06; letter-spacing:-0.01em; margin:0;">
         Воспитание детей<br><span style="font-style:italic; color:var(--gold-500);">в Исламе</span>
@@ -166,8 +169,13 @@
         Защитите умму, воспитайте праведное поколение мусульман!
       </p>
 
+      <div style="display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:6px;">
+        <a class="btn btn--lg" href="#tarif">Выбрать тариф</a>
+        <a class="btn btn--lg btn--dark" href="#pro">Посмотреть программу</a>
+      </div>
+
       <!-- Рассрочка + соцдоказательство -->
-      <div class="hero-badges" style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center;">
+      <div class="hero-badges" style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center; margin-top:10px;">
         <span class="hero-badge" style="display:inline-flex; align-items:center; gap:9px; padding:9px 18px; border:1px solid var(--line-gold); border-radius:var(--radius-pill); background:rgba(199,168,107,.09); font-size:.9rem; color:var(--text-on-dark);">
           <span style="width:8px; height:8px; background:var(--gold-gradient); transform:rotate(45deg); display:block; flex:none;"></span>
           Шариатская рассрочка <strong style="color:var(--gold-500); font-weight:700;">от 3 750 ₽/мес</strong> — без процентов
@@ -178,19 +186,8 @@
         </span>
       </div>
 
-      <div class="hero-stats" style="display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:6px;">
-        <div class="hero-stat" style="display:flex; flex-direction:column; align-items:center; gap:4px; padding:16px 28px; border:1px solid var(--line-on-dark); border-radius:var(--radius-lg); background:rgba(199,168,107,.06);">
-          <span style="font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text-on-dark-muted);">Дата старта</span>
-          <span class="hero-stat-num" style="font-family:var(--font-display); font-size:1.9rem; color:var(--gold-500);">20 июля</span>
-        </div>
-        <div class="hero-stat" style="display:flex; flex-direction:column; align-items:center; gap:4px; padding:16px 28px; border:1px solid var(--line-on-dark); border-radius:var(--radius-lg); background:rgba(199,168,107,.06);">
-          <span style="font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text-on-dark-muted);">Длительность</span>
-          <span class="hero-stat-num" style="font-family:var(--font-display); font-size:1.9rem; color:var(--gold-500);">4,5-5 мес.</span>
-        </div>
-      </div>
-
       <!-- Таймер обратного отсчёта. Дата задаётся в data-deadline (МСК). Для следующего потока меняйте только её. -->
-      <div id="countdown" data-deadline="2026-07-20T00:00:00+03:00" style="display:flex; flex-direction:column; align-items:center; gap:14px; margin-top:8px;">
+      <div id="countdown" data-deadline="2026-07-20T00:00:00+03:00" style="display:flex; flex-direction:column; align-items:center; gap:14px; margin-top:2px;">
         <p style="margin:0; font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-500);">
           До старта потока и повышения цены
         </p>
@@ -203,11 +200,6 @@
         <p style="margin:0; font-size:.85rem; color:var(--text-on-dark-muted);">
           Действует скидка до <strong style="color:var(--gold-500);">3 000 ₽</strong> — после старта цена вернётся к полной
         </p>
-      </div>
-
-      <div style="display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:14px;">
-        <a class="btn btn--lg" href="#tarif">Выбрать тариф</a>
-        <a class="btn btn--lg btn--dark" href="#pro">Посмотреть программу</a>
       </div>
     </div>
   </header>
