@@ -639,12 +639,12 @@
       pSub("Ещё более 5 важных уроков", ["Урок от мамы особенного ребёнка", "«Каково быть мамой 9 детей?» – интервью с мамой-героиней", "Семейное образование и обучение на дому", "Питание детей и прикорм малышам", "Безопасная окружающая среда для ребёнка", "И несколько секретных бонусов"]),
     ]); } },
   ];
-  var openModule = -1;
+  var openModules = {};
   (function renderProgram(animate) {
     var list = document.getElementById("program-list");
     list.innerHTML = "";
     programData.forEach(function (m, i) {
-      var open = i === openModule;
+      var open = !!openModules[i];
       var card = h("div", { "data-reveal": "", style: { background: "var(--surface-card-dark)", border: "1px solid " + (open ? "var(--gold-500)" : "var(--line-on-dark)"), borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-dark)", overflow: "hidden" } });
       var btn = h("button", { type: "button", style: { width: "100%", display: "flex", alignItems: "center", gap: "18px", padding: "22px 26px", background: "transparent", border: "none", cursor: "pointer", textAlign: "left" } },
         h("span", { style: { width: "48px", height: "48px", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1.2rem", background: "var(--gold-gradient)", color: "#26180A", boxShadow: "var(--shadow-gold)" } }, m.num),
@@ -657,7 +657,7 @@
       var bodyWrap = h("div", null, open ? m.body() : null);
       btn.addEventListener("click", function () {
         var prevTop = btn.getBoundingClientRect().top;
-        openModule = openModule === i ? -1 : i;
+        openModules[i] = !openModules[i];
         renderProgram(false);
         // держим нажатую шапку модуля на месте, чтобы страница не «слетала»
         var newBtn = document.querySelectorAll("#program-list button")[i];
