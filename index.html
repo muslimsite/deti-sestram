@@ -73,6 +73,16 @@
   #sticky-cta small { display:block; font-weight:500; font-size:.75rem; opacity:.8; }
   @media (max-width: 860px) { #sticky-cta { display: block; } }
 
+  /* ============ ШАПКА НА МОБИЛЬНОМ ============ */
+  @media (max-width: 760px) {
+    .nav-menu { display: none !important; }
+    .nav-brand { font-size: 1.45rem !important; }
+    nav { gap: 12px !important; padding-left: 18px !important; padding-right: 18px !important; }
+  }
+  @media (max-width: 380px) {
+    .nav-brand { font-size: 1.2rem !important; }
+  }
+
   /* ============ ТАЙМЕР ============ */
   .cd-grid { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
   .cd-cell { min-width:74px; padding:12px 10px; border-radius:var(--radius-md); border:1px solid var(--line-gold); background:rgba(199,168,107,.07); text-align:center; }
@@ -110,14 +120,16 @@
   <nav style="position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:16px clamp(20px,5vw,64px); background:rgba(13,13,13,.82); backdrop-filter:blur(14px); border-bottom:1px solid var(--line-on-dark);">
     <div style="display:flex; align-items:center; gap:12px;">
       <span style="width:20px; height:20px; background:var(--gold-gradient); transform:rotate(45deg); display:block; box-shadow:var(--shadow-gold);"></span>
-      <span style="font-family:'Hamiltone', var(--font-script); font-size:1.9rem; color:var(--text-on-dark); letter-spacing:.02em;">Солиха умм Муса</span>
+      <span class="nav-brand" style="font-family:'Hamiltone', var(--font-script); font-size:1.9rem; color:var(--text-on-dark); letter-spacing:.02em; white-space:nowrap;">Солиха умм Муса</span>
     </div>
-    <div style="display:flex; align-items:center; gap:clamp(16px,2.5vw,34px); flex-wrap:wrap; justify-content:flex-end;">
-      <a href="#pro" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Программа</a>
-      <a href="#reviews" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Отзывы</a>
-      <a href="#author" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Автор</a>
-      <a href="#tarif" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Тарифы</a>
-      <a href="#faq" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Вопросы</a>
+    <div style="display:flex; align-items:center; gap:clamp(16px,2.5vw,34px); justify-content:flex-end;">
+      <div class="nav-menu" style="display:flex; align-items:center; gap:clamp(16px,2.5vw,34px);">
+        <a href="#pro" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Программа</a>
+        <a href="#reviews" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Отзывы</a>
+        <a href="#author" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Автор</a>
+        <a href="#tarif" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Тарифы</a>
+        <a href="#faq" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Вопросы</a>
+      </div>
       <a class="btn btn--sm" href="#tarif">Записаться</a>
     </div>
   </nav>
