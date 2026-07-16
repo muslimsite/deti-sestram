@@ -371,6 +371,14 @@
         </details>
 
         <details class="faq-item" data-reveal>
+          <summary>Как проходит оплата и безопасно ли это?</summary>
+          <div class="faq-body">
+            Оплата проходит только через официальную российскую систему приёма платежей «Моникл».
+            Это безопасно и прозрачно: вы платите через защищённый сервис и получаете подтверждение оплаты.
+          </div>
+        </details>
+
+        <details class="faq-item" data-reveal>
           <summary>Подойдёт ли курс, если моим детям уже 10–15 лет?</summary>
           <div class="faq-body">
             Да. Модуль «Особенности воспитания детей в разном возрасте» разбирает четыре возрастных периода
@@ -904,41 +912,50 @@
     root.appendChild(overlay);
   }
   function closeLightbox() { document.getElementById("lightbox-root").innerHTML = ""; }
-  (function renderReviews(animate) {
+  (function renderReviews() {
     var list = document.getElementById("reviews-list");
     list.innerHTML = "";
     reviewData.forEach(function (r, i) {
-      var open = !!openReviews[i];
-      var card = h("div", { "data-reveal": "", style: { background: "var(--white)", border: "1px solid " + (open ? "var(--gold-500)" : "var(--line-on-light)"), borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", overflow: "hidden" } });
+      var webpSrc = r.src.replace(/\.png$/, ".webp");
+      var card = h("div", { "data-reveal": "", style: { background: "var(--white)", border: "1px solid var(--line-on-light)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", overflow: "hidden" } });
+      var icon = h("span", { style: { width: "36px", height: "36px", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", background: "rgba(199,168,107,.12)", color: "var(--gold-600)", fontSize: "1.4rem", lineHeight: 1 } }, "+");
       var btn = h("button", { type: "button", style: { width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", padding: "22px 28px", background: "transparent", border: "none", cursor: "pointer", textAlign: "left" } },
         h("span", { style: { display: "flex", alignItems: "center", gap: "16px" } },
           h("span", { style: { fontFamily: "var(--font-display)", fontSize: "1.15rem", color: "var(--gold-600)", minWidth: "34px" } }, pad2(i + 1)),
           h("span", { style: { fontFamily: "var(--font-display)", fontSize: "clamp(1.1rem,2.4vw,1.45rem)", color: "var(--text-on-light)" } }, r.title)
         ),
-        h("span", { style: { width: "36px", height: "36px", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", background: open ? "var(--gold-gradient)" : "rgba(199,168,107,.12)", color: open ? "#26180A" : "var(--gold-600)", fontSize: "1.4rem", lineHeight: 1 } }, open ? "–" : "+")
+        icon
       );
-      var webpSrc = r.src.replace(/\.png$/, ".webp");
-      var body = h("div", null, open
-        ? h("div", { style: { padding: "0 14px 16px", display: "flex", flexDirection: "column", gap: "10px" } },
-            h("picture", { onClick: (function (s) { return function () { openLightbox(s); }; })(r.src) },
-              h("source", { srcset: webpSrc, type: "image/webp" }),
-              h("img", { src: r.src, loading: "lazy", alt: "Отзывы: " + r.title, style: { width: "100%", minHeight: "140px", display: "block", borderRadius: "14px", border: "1px solid var(--line-on-light)", background: "rgba(199,168,107,.08)", cursor: "zoom-in" } })
-            ),
-            h("span", { style: { fontSize: ".82rem", letterSpacing: ".02em", color: "var(--gold-600)", textAlign: "center" } }, "Нажмите на изображение, чтобы открыть крупнее")
-          )
-        : null);
+      var bodyWrap = h("div", null);
+      function buildBody() {
+        return h("div", { style: { padding: "0 14px 16px", display: "flex", flexDirection: "column", gap: "10px" } },
+          h("picture", { onClick: function () { openLightbox(r.src); } },
+            h("source", { srcset: webpSrc, type: "image/webp" }),
+            h("img", { src: r.src, loading: "lazy", alt: "Отзывы: " + r.title, style: { width: "100%", minHeight: "140px", display: "block", borderRadius: "14px", border: "1px solid var(--line-on-light)", background: "rgba(199,168,107,.08)", cursor: "zoom-in" } })
+          ),
+          h("span", { style: { fontSize: ".82rem", letterSpacing: ".02em", color: "var(--gold-600)", textAlign: "center" } }, "Нажмите на изображение, чтобы открыть крупнее")
+        );
+      }
+      // Переключаем только эту карточку на месте — список не пересобирается, поэтому ничего не «скачет».
+      function applyOpen() {
+        var open = !!openReviews[i];
+        card.style.borderColor = open ? "var(--gold-500)" : "var(--line-on-light)";
+        icon.textContent = open ? "–" : "+";
+        icon.style.background = open ? "var(--gold-gradient)" : "rgba(199,168,107,.12)";
+        icon.style.color = open ? "#26180A" : "var(--gold-600)";
+        bodyWrap.innerHTML = "";
+        if (open) bodyWrap.appendChild(buildBody());
+      }
       btn.addEventListener("click", function () {
-        var prevTop = btn.getBoundingClientRect().top;
         openReviews[i] = !openReviews[i];
-        renderReviews(false);
-        var newBtn = document.querySelectorAll("#reviews-list button")[i];
-        if (newBtn) window.scrollBy({ top: newBtn.getBoundingClientRect().top - prevTop, behavior: "instant" });
+        applyOpen();
       });
-      card.appendChild(btn); card.appendChild(body);
+      applyOpen();
+      card.appendChild(btn); card.appendChild(bodyWrap);
       list.appendChild(card);
-      if (animate) observeReveal(card); else card.classList.add("is-in");
+      observeReveal(card);
     });
-  })(true);
+  })();
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
 
   /* ============ ТАЙМЕР ОБРАТНОГО ОТСЧЁТА ============ */
