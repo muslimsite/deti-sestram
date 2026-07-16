@@ -582,9 +582,9 @@
           ),
           t.install(),
           h("div", { style: { display: "flex", flexDirection: "column", gap: "12px", alignItems: "stretch" } },
-            h("a", { class: "btn btn--block", href: t.fullUrl }, "Полная оплата"),
+            h("a", { class: "btn btn--block", href: t.fullUrl, target: "_blank", rel: "noopener" }, "Полная оплата"),
             h("p", { style: { margin: "2px 0 0", fontSize: ".72rem", lineHeight: 1.4, color: "var(--text-on-dark-muted)", opacity: .85 } }, "Оплачивая рассрочкой, вы обязуетесь выплатить полную стоимость курса, но по частям."),
-            h("a", { class: "btn btn--block btn--dark", href: t.installUrl }, "Рассрочка")
+            h("a", { class: "btn btn--block btn--dark", href: t.installUrl, target: "_blank", rel: "noopener" }, "Рассрочка")
           ),
           h("p", { style: { margin: 0, textAlign: "center", fontSize: ".78rem", letterSpacing: ".02em", color: "var(--text-on-dark-muted)" } }, t.access)
         )
