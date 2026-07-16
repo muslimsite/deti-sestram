@@ -373,10 +373,10 @@
         <details class="faq-item" data-reveal>
           <summary>Подойдёт ли курс, если моим детям уже 10–15 лет?</summary>
           <div class="faq-body">
-            Да. Модуль 1 разбирает четыре возрастных периода отдельно – от рождения до 3 лет, 3–7 лет, школьный
-            и подростковый возраст. Для каждого периода даются свои методы, подход к поощрениям и наказаниям.
-            Отдельный модуль посвящён различиям в воспитании мальчиков и девочек, что особенно актуально
-            в подростковом возрасте.
+            Да. Модуль «Особенности воспитания детей в разном возрасте» разбирает четыре возрастных периода
+            отдельно – от рождения до 3 лет, 3–7 лет, школьный и подростковый возраст. Для каждого периода
+            даются свои методы, подход к поощрениям и наказаниям. Отдельный модуль «Они такие разные» посвящён
+            различиям в воспитании мальчиков и девочек, что особенно актуально в подростковом возрасте.
           </div>
         </details>
 
@@ -398,14 +398,6 @@
             вопрос-ответ с Солихой умм Муса в мини-группе, где разбирается каждый вопрос учениц.
             На тарифе <strong>Бакалавр</strong> вебинара нет, но есть отдельный чат с кураторами-мотиваторами.
             На тарифе <strong>Абитуриент</strong> – только общий чат «болталка», единый для всех потоков.
-          </div>
-        </details>
-
-        <details class="faq-item" data-reveal>
-          <summary>Насколько курс соответствует Шариату? На что опирается автор?</summary>
-          <div class="faq-body">
-            Курс построен на Коране и Сунне. Автор – требующая знаний: училась в Египте, окончила исламскую
-            Академию ZAD, учится в Мединском Исламском Университете.
           </div>
         </details>
 
@@ -904,7 +896,10 @@
     root.innerHTML = "";
     var overlay = h("div", { onClick: closeLightbox, style: { position: "fixed", inset: 0, zIndex: 1000, background: "rgba(10,15,28,.94)", overflow: "auto", WebkitOverflowScrolling: "touch", padding: "20px", cursor: "zoom-out", textAlign: "center" } },
       h("button", { type: "button", onClick: function (e) { e.stopPropagation(); closeLightbox(); }, style: { position: "fixed", top: "16px", right: "18px", zIndex: 1001, width: "46px", height: "46px", borderRadius: "50%", border: "1px solid rgba(246,241,231,.4)", background: "rgba(0,0,0,.35)", color: "#F6F1E7", fontSize: "1.6rem", lineHeight: 1, cursor: "pointer" } }, "×"),
-      h("img", { src: src, onClick: function (e) { e.stopPropagation(); }, style: { width: "min(1600px, 230vw)", maxWidth: "none", height: "auto", borderRadius: "10px", boxShadow: "0 24px 70px rgba(0,0,0,.55)" } })
+      h("picture", { onClick: function (e) { e.stopPropagation(); } },
+        h("source", { srcset: src.replace(/\.png$/, ".webp"), type: "image/webp" }),
+        h("img", { src: src, style: { width: "min(1600px, 230vw)", maxWidth: "none", height: "auto", borderRadius: "10px", boxShadow: "0 24px 70px rgba(0,0,0,.55)" } })
+      )
     );
     root.appendChild(overlay);
   }
@@ -927,7 +922,7 @@
         ? h("div", { style: { padding: "0 14px 16px", display: "flex", flexDirection: "column", gap: "10px" } },
             h("picture", { onClick: (function (s) { return function () { openLightbox(s); }; })(r.src) },
               h("source", { srcset: webpSrc, type: "image/webp" }),
-              h("img", { src: r.src, loading: "lazy", alt: "Отзывы: " + r.title, style: { width: "100%", display: "block", borderRadius: "14px", border: "1px solid var(--line-on-light)", cursor: "zoom-in" } })
+              h("img", { src: r.src, loading: "lazy", alt: "Отзывы: " + r.title, style: { width: "100%", minHeight: "140px", display: "block", borderRadius: "14px", border: "1px solid var(--line-on-light)", background: "rgba(199,168,107,.08)", cursor: "zoom-in" } })
             ),
             h("span", { style: { fontSize: ".82rem", letterSpacing: ".02em", color: "var(--gold-600)", textAlign: "center" } }, "Нажмите на изображение, чтобы открыть крупнее")
           )
@@ -992,6 +987,19 @@
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+  })();
+
+  /* ============ ФОНОВАЯ ПРЕДЗАГРУЗКА КАРТИНОК ОТЗЫВОВ ============ */
+  (function preloadReviewImages() {
+    // Загружаем лёгкие webp-версии заранее, чтобы при клике отзыв открывался мгновенно.
+    var start = function () {
+      reviewData.forEach(function (r) {
+        var img = new Image();
+        img.src = r.src.replace(/\.png$/, ".webp");
+      });
+    };
+    if ("requestIdleCallback" in window) requestIdleCallback(start, { timeout: 2500 });
+    else setTimeout(start, 1500);
   })();
 
   /* ============ ПОДСКАЗКА «ЛИСТАЙТЕ ВПРАВО» ДЛЯ ТАБЛИЦЫ ТАРИФОВ ============ */
