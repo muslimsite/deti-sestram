@@ -890,7 +890,7 @@
     { title: "Дуа", src: "reviews_img/dua.png" },
     { title: "Семейное обучение", src: "reviews_img/so.png" },
   ];
-  var openReview = 0;
+  var openReviews = { 0: true };
   function openLightbox(src) {
     var root = document.getElementById("lightbox-root");
     root.innerHTML = "";
@@ -908,7 +908,7 @@
     var list = document.getElementById("reviews-list");
     list.innerHTML = "";
     reviewData.forEach(function (r, i) {
-      var open = i === openReview;
+      var open = !!openReviews[i];
       var card = h("div", { "data-reveal": "", style: { background: "var(--white)", border: "1px solid " + (open ? "var(--gold-500)" : "var(--line-on-light)"), borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", overflow: "hidden" } });
       var btn = h("button", { type: "button", style: { width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", padding: "22px 28px", background: "transparent", border: "none", cursor: "pointer", textAlign: "left" } },
         h("span", { style: { display: "flex", alignItems: "center", gap: "16px" } },
@@ -929,7 +929,7 @@
         : null);
       btn.addEventListener("click", function () {
         var prevTop = btn.getBoundingClientRect().top;
-        openReview = openReview === i ? -1 : i;
+        openReviews[i] = !openReviews[i];
         renderReviews(false);
         var newBtn = document.querySelectorAll("#reviews-list button")[i];
         if (newBtn) window.scrollBy({ top: newBtn.getBoundingClientRect().top - prevTop, behavior: "instant" });
