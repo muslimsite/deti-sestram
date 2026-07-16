@@ -51,6 +51,55 @@
 
   /* ---- Avatar ---- */
   .avatar { width:260px; height:260px; max-width:78vw; max-height:78vw; border-radius:50%; object-fit:cover; border:2px solid var(--gold-500); box-shadow:var(--shadow-lg), 0 0 0 10px rgba(199,168,107,.08); }
+
+  /* ============ ЛИПКАЯ КНОПКА НА МОБИЛЬНОМ ============ */
+  #sticky-cta {
+    display: none;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: rgba(13,13,13,.92); backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line-gold);
+    transform: translateY(120%); transition: transform .4s cubic-bezier(.16,1,.3,1);
+  }
+  #sticky-cta.is-visible { transform: translateY(0); }
+  #sticky-cta a {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; box-sizing: border-box; padding: 15px 20px;
+    background: var(--gold-gradient); color: #26180A;
+    font-family: var(--font-body); font-weight: 700; font-size: 1rem;
+    letter-spacing: .04em; border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-gold); text-decoration: none;
+  }
+  #sticky-cta small { display:block; font-weight:500; font-size:.75rem; opacity:.8; }
+  @media (max-width: 860px) { #sticky-cta { display: block; } }
+
+  /* ============ ТАЙМЕР ============ */
+  .cd-grid { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  .cd-cell { min-width:74px; padding:12px 10px; border-radius:var(--radius-md); border:1px solid var(--line-gold); background:rgba(199,168,107,.07); text-align:center; }
+  .cd-num { font-family:var(--font-display); font-size:1.9rem; font-weight:700; color:var(--gold-500); line-height:1; font-variant-numeric:tabular-nums; }
+  .cd-lab { font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--text-on-dark-muted); margin-top:6px; }
+
+  /* ============ FAQ ============ */
+  .faq-item { border:1px solid var(--line-on-light); border-radius:var(--radius-lg); background:var(--white,#fff); overflow:hidden; transition:border-color .3s; }
+  .faq-item[open] { border-color:var(--gold-500); }
+  .faq-item summary { list-style:none; cursor:pointer; padding:24px 26px; display:flex; gap:18px; align-items:center; justify-content:space-between; font-weight:600; font-size:1.02rem; color:var(--text-on-light); }
+  .faq-item summary::-webkit-details-marker { display:none; }
+  .faq-item summary::after { content:'+'; flex:none; width:34px; height:34px; border-radius:50%; border:1px solid var(--line-gold); display:grid; place-items:center; color:var(--gold-600); font-size:1.2rem; transition:.3s; }
+  .faq-item[open] summary::after { content:'–'; background:var(--gold-gradient); color:#26180A; border-color:transparent; }
+  .faq-body { padding:0 26px 24px; color:var(--text-on-light-muted); line-height:1.7; font-size:.98rem; }
+
+  /* ============ ТАБЛИЦА СРАВНЕНИЯ ТАРИФОВ ============ */
+  .cmp-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:var(--radius-lg); border:1px solid var(--line-on-dark); }
+  .cmp { width:100%; border-collapse:collapse; min-width:620px; font-size:.94rem; }
+  .cmp th, .cmp td { padding:16px 18px; text-align:center; border-bottom:1px solid var(--line-on-dark); }
+  .cmp th:first-child, .cmp td:first-child { text-align:left; color:var(--text-on-dark); font-weight:500; }
+  .cmp thead th { background:rgba(199,168,107,.08); font-family:var(--font-display); font-size:1.15rem; color:var(--gold-500); font-weight:700; }
+  .cmp thead th.is-hit { background:var(--gold-gradient); color:#26180A; }
+  .cmp tbody td { color:var(--text-on-dark-muted); }
+  .cmp .yes { color:var(--gold-500); font-size:1.1rem; }
+  .cmp .no  { color:rgba(169,176,188,.4); font-size:1.1rem; }
+  .cmp tbody tr:last-child td { border-bottom:none; }
+  .cmp .row-price { font-family:var(--font-display); font-size:1.3rem; color:var(--text-on-dark); font-weight:700; }
 </style>
 </head>
 <body>
@@ -68,6 +117,7 @@
       <a href="#reviews" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Отзывы</a>
       <a href="#author" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Автор</a>
       <a href="#tarif" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Тарифы</a>
+      <a href="#faq" style="font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted);">Вопросы</a>
       <a class="btn btn--sm" href="#tarif">Записаться</a>
     </div>
   </nav>
@@ -90,6 +140,18 @@
         Защитите умму, воспитайте праведное поколение мусульман!
       </p>
 
+      <!-- Рассрочка + соцдоказательство -->
+      <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center;">
+        <span style="display:inline-flex; align-items:center; gap:9px; padding:9px 18px; border:1px solid var(--line-gold); border-radius:var(--radius-pill); background:rgba(199,168,107,.09); font-size:.9rem; color:var(--text-on-dark);">
+          <span style="width:8px; height:8px; background:var(--gold-gradient); transform:rotate(45deg); display:block; flex:none;"></span>
+          Шариатская рассрочка <strong style="color:var(--gold-500); font-weight:700;">от 3 750 ₽/мес</strong> — без процентов
+        </span>
+        <span style="display:inline-flex; align-items:center; gap:9px; padding:9px 18px; border:1px solid var(--line-on-dark); border-radius:var(--radius-pill); font-size:.9rem; color:var(--text-on-dark-muted);">
+          <span style="width:8px; height:8px; background:var(--gold-gradient); transform:rotate(45deg); display:block; flex:none;"></span>
+          Более <strong style="color:var(--gold-500); font-weight:700;">4 000</strong> учениц
+        </span>
+      </div>
+
       <div style="display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:6px;">
         <div style="display:flex; flex-direction:column; align-items:center; gap:4px; padding:16px 28px; border:1px solid var(--line-on-dark); border-radius:var(--radius-lg); background:rgba(199,168,107,.06);">
           <span style="font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text-on-dark-muted);">Дата старта</span>
@@ -99,6 +161,22 @@
           <span style="font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text-on-dark-muted);">Длительность</span>
           <span style="font-family:var(--font-display); font-size:1.9rem; color:var(--gold-500);">4,5-5 мес.</span>
         </div>
+      </div>
+
+      <!-- Таймер обратного отсчёта. Дата задаётся в data-deadline (МСК). Для следующего потока меняйте только её. -->
+      <div id="countdown" data-deadline="2026-07-20T00:00:00+03:00" style="display:flex; flex-direction:column; align-items:center; gap:14px; margin-top:8px;">
+        <p style="margin:0; font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-500);">
+          До старта потока и повышения цены
+        </p>
+        <div class="cd-grid">
+          <div class="cd-cell"><div class="cd-num" data-cd="d">--</div><div class="cd-lab">дней</div></div>
+          <div class="cd-cell"><div class="cd-num" data-cd="h">--</div><div class="cd-lab">часов</div></div>
+          <div class="cd-cell"><div class="cd-num" data-cd="m">--</div><div class="cd-lab">минут</div></div>
+          <div class="cd-cell"><div class="cd-num" data-cd="s">--</div><div class="cd-lab">секунд</div></div>
+        </div>
+        <p style="margin:0; font-size:.85rem; color:var(--text-on-dark-muted);">
+          Действует скидка до <strong style="color:var(--gold-500);">3 000 ₽</strong> — после старта цена вернётся к полной
+        </p>
       </div>
 
       <div style="display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:14px;">
@@ -176,6 +254,44 @@
         <span class="orn orn--dark" style="width:150px"><i class="l l1"></i><i class="d"></i><i class="l l2"></i></span>
       </div>
 
+      <!-- Сравнительная таблица тарифов — видно разницу одним взглядом. На мобильном горизонтальный скролл. -->
+      <div data-reveal style="max-width:1000px; margin:0 auto 56px;">
+        <div class="cmp-wrap">
+          <table class="cmp">
+            <thead>
+              <tr>
+                <th style="min-width:230px;">Что входит</th>
+                <th>Абитуриент</th>
+                <th>Бакалавр</th>
+                <th class="is-hit">Магистр<br><span style="font-size:.62rem; letter-spacing:.14em; font-family:var(--font-body); font-weight:600;">ВЫБИРАЮТ 7 ИЗ 10</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Основные модули курса</td><td>4 из 6</td><td>Все 6</td><td>Все 6</td></tr>
+              <tr><td>Модуль «Основные принципы воспитания детей в большой семье»</td><td><span class="no">—</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
+              <tr><td>Модуль «Обучение детей»</td><td><span class="no">—</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
+              <tr><td>Чат «болталка» (общий для всех потоков)</td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
+              <tr><td>Отдельный чат с кураторами-мотиваторами</td><td><span class="no">—</span></td><td><span class="yes">◆</span></td><td>мини-чат</td></tr>
+              <tr><td>1 100 стр. дополнительных материалов</td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
+              <tr><td>Курс внутри курса</td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
+              <tr><td>Бонусные уроки от приглашённых спикеров</td><td><span class="no">—</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
+              <tr><td>Более 5 важных уроков</td><td><span class="no">—</span></td><td><span class="no">—</span></td><td><span class="yes">◆</span></td></tr>
+              <tr><td>Живой вебинар вопрос-ответ с Солихой умм Муса</td><td><span class="no">—</span></td><td><span class="no">—</span></td><td><span class="yes">◆</span></td></tr>
+              <tr><td>Секретные бонусы</td><td><span class="no">—</span></td><td><span class="no">—</span></td><td><span class="yes">◆</span></td></tr>
+              <tr><td>Длительность</td><td>4 мес.</td><td>4,5 мес.</td><td>5 мес.</td></tr>
+              <tr><td>Доступ к урокам до</td><td>20.03.2027</td><td>26.05.2027</td><td>26.05.2027</td></tr>
+              <tr><td>Рассрочка без процентов</td><td>от 3 750 ₽/мес</td><td>от 3 800 ₽/мес</td><td>от 4 900 ₽/мес</td></tr>
+              <tr>
+                <td style="font-weight:700;">Стоимость до 20 июля</td>
+                <td class="row-price"><span style="display:block; font-family:var(--font-body); font-size:.8rem; font-weight:400; text-decoration:line-through; color:var(--text-on-dark-muted);">16 900 ₽</span>14 900 ₽</td>
+                <td class="row-price"><span style="display:block; font-family:var(--font-body); font-size:.8rem; font-weight:400; text-decoration:line-through; color:var(--text-on-dark-muted);">19 900 ₽</span>16 900 ₽</td>
+                <td class="row-price" style="color:var(--gold-500);"><span style="display:block; font-family:var(--font-body); font-size:.8rem; font-weight:400; text-decoration:line-through; color:var(--text-on-dark-muted);">24 900 ₽</span>21 900 ₽</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div id="tariffs-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:28px; align-items:stretch;"></div>
     </div>
   </section>
@@ -208,8 +324,102 @@
     </div>
   </section>
 
+  <!-- ============ FAQ ============ -->
+  <section id="faq" style="background:var(--cream-50); padding:clamp(4rem,9vw,7.5rem) clamp(20px,5vw,64px);">
+    <div style="max-width:900px; margin:0 auto;">
+      <div data-reveal style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:18px; margin-bottom:48px;">
+        <span class="pill pill--soft">Вопросы и ответы</span>
+        <h2 style="font-family:var(--font-display); font-weight:700; font-size:var(--fs-display-2); line-height:1.12; margin:0;">Частые <span style="font-style:italic; color:var(--gold-600);">вопросы</span></h2>
+        <span class="orn" style="width:150px"><i class="l l1"></i><i class="d"></i><i class="l l2"></i></span>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:14px;">
+
+        <details class="faq-item" data-reveal open>
+          <summary>А если я не успею смотреть уроки вовремя?</summary>
+          <div class="faq-body">
+            Ничего страшного. Все уроки записаны заранее и доступны в любое время — вы учитесь в своём темпе,
+            когда дети спят или в свободную минуту. Доступ к материалам сохраняется до марта 2027 г. (Абитуриент)
+            или до мая 2027 г. (Бакалавр и Магистр), так что вы спокойно вернётесь к любому модулю.
+          </div>
+        </details>
+
+        <details class="faq-item" data-reveal>
+          <summary>Что такое шариатская рассрочка и точно ли в ней нет процентов?</summary>
+          <div class="faq-body">
+            Это оплата курса частями без переплаты: вы платите ту же сумму, что и при полной оплате, просто
+            разбитую на 4–5 платежей. Никаких процентов, банков и кредитных договоров — рассрочку предоставляем
+            мы сами. Оплачивая рассрочкой, вы обязуетесь выплатить полную стоимость курса, но по частям.
+          </div>
+        </details>
+
+        <details class="faq-item" data-reveal>
+          <summary>Подойдёт ли курс, если моим детям уже 10–15 лет?</summary>
+          <div class="faq-body">
+            Да. Модуль 1 разбирает четыре возрастных периода отдельно — от рождения до 3 лет, 3–7 лет, школьный
+            и подростковый возраст. Для каждого периода даются свои методы, подход к поощрениям и наказаниям.
+            Отдельный модуль посвящён различиям в воспитании мальчиков и девочек, что особенно актуально
+            в подростковом возрасте.
+          </div>
+        </details>
+
+        <details class="faq-item" data-reveal>
+          <summary>Какой тариф выбрать, если я беру курс впервые?</summary>
+          <div class="faq-body">
+            Большинство сестёр выбирают <strong>Магистр</strong> — в нём есть живой вебинар с автором, бонусные уроки
+            от приглашённых спикеров и секретные бонусы. <strong>Бакалавр</strong> — все 6 модулей и отдельный чат
+            с кураторами-мотиваторами. <strong>Абитуриент</strong> — 4 основных модуля и общий чат «болталка»;
+            модули «Основные принципы воспитания детей в большой семье» и «Обучение детей» в него не входят.
+            Сравнить тарифы построчно можно в таблице выше.
+          </div>
+        </details>
+
+        <details class="faq-item" data-reveal>
+          <summary>Есть ли обратная связь и можно ли задать вопрос автору?</summary>
+          <div class="faq-body">
+            Задать вопрос автору можно на тарифе <strong>Магистр</strong> — там проходит живой вебинар
+            вопрос-ответ с Солихой умм Муса в мини-группе, где разбирается каждый вопрос учениц.
+            На тарифе <strong>Бакалавр</strong> вебинара нет, но есть отдельный чат с кураторами-мотиваторами.
+            На тарифе <strong>Абитуриент</strong> — только общий чат «болталка», единый для всех потоков.
+          </div>
+        </details>
+
+        <details class="faq-item" data-reveal>
+          <summary>Насколько курс соответствует Шариату? На что опирается автор?</summary>
+          <div class="faq-body">
+            Курс построен на Коране и Сунне. Автор — требующая знаний: училась в Египте, окончила исламскую
+            Академию ZAD, учится в Мединском Исламском Университете.
+          </div>
+        </details>
+
+        <details class="faq-item" data-reveal>
+          <summary>Я не очень дружу с техникой. Сложно ли будет учиться?</summary>
+          <div class="faq-body">
+            Нет. После оплаты вы получите ссылку и простую инструкцию, как войти в личный кабинет. Уроки
+            открываются в один клик с телефона или компьютера. Если что-то не получится — напишите менеджеру,
+            сёстры помогут разобраться пошагово.
+          </div>
+        </details>
+
+        <details class="faq-item" data-reveal>
+          <summary>Сколько времени в неделю нужно на курс?</summary>
+          <div class="faq-body">
+            Курс рассчитан на 78 академических часов при длительности 4–5 месяцев в зависимости от тарифа —
+            это примерно 3–4 часа в неделю. Но жёсткого графика нет: записи доступны всё время, и вы сами
+            выбираете нагрузку.
+          </div>
+        </details>
+
+      </div>
+
+      <p style="text-align:center; margin:40px 0 0; font-size:.98rem; color:var(--text-on-light-muted);">
+        Не нашли свой вопрос? <a href="#final-cta" style="font-weight:600;">Напишите менеджеру</a> — сёстры ответят.
+      </p>
+    </div>
+  </section>
+
   <!-- ============ ЗАКЛЮЧИТЕЛЬНЫЙ CTA ============ -->
-  <section style="position:relative; background:radial-gradient(circle at 50% 30%, #172140 0%, #0E1626 55%, #0A0F1C 100%); color:var(--text-on-dark); padding:clamp(4.5rem,9vw,8rem) clamp(20px,5vw,64px); text-align:center; overflow:hidden;">
+  <section id="final-cta" style="position:relative; background:radial-gradient(circle at 50% 30%, #172140 0%, #0E1626 55%, #0A0F1C 100%); color:var(--text-on-dark); padding:clamp(4.5rem,9vw,8rem) clamp(20px,5vw,64px); text-align:center; overflow:hidden;">
     <div style="position:absolute; left:50%; top:20%; width:55%; height:60%; transform:translateX(-50%); background:radial-gradient(ellipse at center, rgba(199,168,107,.16), transparent 70%); filter:blur(24px); pointer-events:none;"></div>
     <div data-reveal style="position:relative; max-width:760px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:26px;">
       <span class="orn orn--dark" style="width:150px"><i class="l l1"></i><i class="d"></i><i class="l l2"></i></span>
@@ -228,13 +438,54 @@
   </section>
 
   <!-- ============ FOOTER ============ -->
-  <footer style="background:var(--ink-900); color:var(--text-on-dark-muted); padding:44px clamp(20px,5vw,64px); display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:space-between;">
-    <div style="display:flex; align-items:center; gap:12px;">
-      <span style="width:16px; height:16px; background:var(--gold-gradient); transform:rotate(45deg); display:block;"></span>
-      <span style="font-family:'Hamiltone', var(--font-script); font-size:1.7rem; color:var(--text-on-dark);">Солиха умм Муса</span>
+  <footer style="background:var(--ink-900); color:var(--text-on-dark-muted); padding:clamp(48px,6vw,64px) clamp(20px,5vw,64px) 32px;">
+    <div style="max-width:1200px; margin:0 auto;">
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:40px; padding-bottom:36px; border-bottom:1px solid var(--line-on-dark);">
+
+        <!-- Бренд -->
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="width:16px; height:16px; background:var(--gold-gradient); transform:rotate(45deg); display:block; flex:none;"></span>
+            <span style="font-family:'Hamiltone', var(--font-script); font-size:1.7rem; color:var(--text-on-dark);">Солиха умм Муса</span>
+          </div>
+          <p style="margin:0; font-size:.86rem; line-height:1.6; max-width:280px;">
+            Курсы, марафоны и вебинары для мусульманок с 2018 года. Более 4 000 учениц.
+          </p>
+        </div>
+
+        <!-- Навигация -->
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <span style="font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-500);">Курс</span>
+          <a href="#pro" style="font-size:.88rem; color:var(--text-on-dark-muted);">Программа</a>
+          <a href="#tarif" style="font-size:.88rem; color:var(--text-on-dark-muted);">Тарифы</a>
+          <a href="#reviews" style="font-size:.88rem; color:var(--text-on-dark-muted);">Отзывы</a>
+          <a href="#author" style="font-size:.88rem; color:var(--text-on-dark-muted);">Об авторе</a>
+          <a href="#faq" style="font-size:.88rem; color:var(--text-on-dark-muted);">Вопросы и ответы</a>
+        </div>
+
+        <!-- Связаться -->
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <span style="font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-500);">Связаться</span>
+          <a href="https://wa.me/79337180449" target="_blank" rel="noopener" style="font-size:.88rem; color:var(--text-on-dark-muted);">WhatsApp менеджера</a>
+          <a href="https://t.me/kurs_po_vospitaniyu" target="_blank" rel="noopener" style="font-size:.88rem; color:var(--text-on-dark-muted);">Telegram менеджера</a>
+        </div>
+
+      </div>
+
+      <div style="display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; align-items:center; padding-top:26px;">
+        <span style="font-size:.78rem; line-height:1.6;">© 2026 Солиха умм Муса · Воспитание детей в Исламе</span>
+      </div>
+
     </div>
-    <span style="font-size:.82rem;">© Солиха умм Муса · Воспитание детей в Исламе</span>
   </footer>
+
+  <!-- ============ ЛИПКАЯ КНОПКА НА МОБИЛЬНОМ ============ -->
+  <div id="sticky-cta">
+    <a href="#tarif">
+      <span>Выбрать тариф <small>от 3 750 ₽/мес без процентов</small></span>
+    </a>
+  </div>
 
   <div id="lightbox-root"></div>
 
@@ -547,7 +798,7 @@
   };
 
   var tariffsBase = [
-    { name: "АБИТУРИЕНТ", price: "14 900", oldPrice: "16 900", term: "3,5 мес.", access: "Доступ к урокам - до 20 марта 2027 г.", fullUrl: "https://monecle.com/buy/95843", installUrl: "https://monecle.com/buy/96187", features: function () { return buildFeatures([coreSection(abCore)]); }, install: function () { return installEl("4 месяца", "3 750", ["3 750", "3 750", "3 750", "3 650"]); } },
+    { name: "АБИТУРИЕНТ", price: "14 900", oldPrice: "16 900", term: "4 мес.", access: "Доступ к урокам - до 20 марта 2027 г.", fullUrl: "https://monecle.com/buy/95843", installUrl: "https://monecle.com/buy/96187", features: function () { return buildFeatures([coreSection(abCore)]); }, install: function () { return installEl("4 месяца", "3 750", ["3 750", "3 750", "3 750", "3 650"]); } },
     { name: "БАКАЛАВР", price: "16 900", oldPrice: "19 900", term: "4,5 мес.", access: "Доступ к урокам - до 26 мая 2027 г.", fullUrl: "https://monecle.com/buy/92372", installUrl: "https://monecle.com/buy/96183", features: function () { return buildFeatures([coreSection(bakCore), bakBonus()]); }, install: function () { return installEl("4,5 месяца", "3 800", ["3 800", "3 800", "3 800", "3 800", "1 700"]); } },
     { name: "МАГИСТР", price: "21 900", oldPrice: "24 900", term: "5 мес.", access: "Доступ к урокам - до 26 мая 2027 г.", fullUrl: "https://monecle.com/buy/92370", installUrl: "https://monecle.com/buy/96180", features: function () { return buildFeatures([coreSection(magCore), magBonus()]); }, install: function () { return installEl("4,5 месяца", "4 900", ["4 900", "4 900", "4 900", "4 900", "2 300"]); } },
   ];
@@ -647,9 +898,13 @@
         ),
         h("span", { style: { width: "36px", height: "36px", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", background: open ? "var(--gold-gradient)" : "rgba(199,168,107,.12)", color: open ? "#26180A" : "var(--gold-600)", fontSize: "1.4rem", lineHeight: 1 } }, open ? "–" : "+")
       );
+      var webpSrc = r.src.replace(/\.png$/, ".webp");
       var body = h("div", null, open
         ? h("div", { style: { padding: "0 14px 16px", display: "flex", flexDirection: "column", gap: "10px" } },
-            h("img", { src: r.src, loading: "lazy", alt: "Отзывы: " + r.title, onClick: (function (s) { return function () { openLightbox(s); }; })(r.src), style: { width: "100%", display: "block", borderRadius: "14px", border: "1px solid var(--line-on-light)", cursor: "zoom-in" } }),
+            h("picture", { onClick: (function (s) { return function () { openLightbox(s); }; })(r.src) },
+              h("source", { srcset: webpSrc, type: "image/webp" }),
+              h("img", { src: r.src, loading: "lazy", alt: "Отзывы: " + r.title, style: { width: "100%", display: "block", borderRadius: "14px", border: "1px solid var(--line-on-light)", cursor: "zoom-in" } })
+            ),
             h("span", { style: { fontSize: ".82rem", letterSpacing: ".02em", color: "var(--gold-600)", textAlign: "center" } }, "Нажмите на изображение, чтобы открыть крупнее")
           )
         : null);
@@ -660,6 +915,54 @@
     });
   })(true);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
+
+  /* ============ ТАЙМЕР ОБРАТНОГО ОТСЧЁТА ============ */
+  (function initCountdown() {
+    var cd = document.getElementById("countdown");
+    if (!cd) return;
+    var deadline = new Date(cd.getAttribute("data-deadline")).getTime();
+    var cells = {
+      d: cd.querySelector('[data-cd="d"]'), h: cd.querySelector('[data-cd="h"]'),
+      m: cd.querySelector('[data-cd="m"]'), s: cd.querySelector('[data-cd="s"]')
+    };
+    var timer;
+    function tick() {
+      var diff = deadline - Date.now();
+      if (diff <= 0) {
+        // Дедлайн прошёл — прячем таймер, чтобы не показывать нули.
+        // Для следующего потока просто поменяйте data-deadline в разметке.
+        cd.style.display = "none";
+        clearInterval(timer);
+        return;
+      }
+      var sec = Math.floor(diff / 1000);
+      cells.d.textContent = Math.floor(sec / 86400);
+      cells.h.textContent = pad2(Math.floor(sec / 3600) % 24);
+      cells.m.textContent = pad2(Math.floor(sec / 60) % 60);
+      cells.s.textContent = pad2(sec % 60);
+    }
+    tick();
+    timer = setInterval(tick, 1000);
+  })();
+
+  /* ============ ЛИПКАЯ КНОПКА НА МОБИЛЬНОМ ============ */
+  (function initStickyCta() {
+    var sticky = document.getElementById("sticky-cta");
+    if (!sticky) return;
+    var tarif = document.getElementById("tarif");
+    function onScroll() {
+      // Показываем после первого экрана и прячем внутри секции тарифов — там кнопки и так есть.
+      var past = window.scrollY > window.innerHeight * 0.8;
+      var inTarif = false;
+      if (tarif) {
+        var r = tarif.getBoundingClientRect();
+        inTarif = r.top < window.innerHeight && r.bottom > 0;
+      }
+      sticky.classList.toggle("is-visible", past && !inTarif);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  })();
 
   /* ============ REVEAL ON SCROLL (static section blocks + one-time cards) ============ */
   document.querySelectorAll("[data-reveal]").forEach(observeReveal);
