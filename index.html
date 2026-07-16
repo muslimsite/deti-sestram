@@ -117,6 +117,16 @@
   .cmp .no  { color:rgba(169,176,188,.4); font-size:1.1rem; }
   .cmp tbody tr:last-child td { border-bottom:none; }
   .cmp .row-price { font-family:var(--font-display); font-size:1.3rem; color:var(--text-on-dark); font-weight:700; }
+
+  /* подсказка «листайте вправо» — только на мобильном, где таблица не помещается */
+  .cmp-hint { display:none; }
+  @media (max-width: 760px) {
+    .cmp-hint { display:flex; align-items:center; justify-content:center; gap:9px; margin:0 2px 12px; padding:9px 14px; border:1px solid var(--line-gold); border-radius:var(--radius-pill); background:rgba(199,168,107,.08); font-size:.84rem; letter-spacing:.01em; color:var(--gold-500); transition:opacity .35s ease; }
+    .cmp-hint-arrow { font-size:1.1rem; line-height:1; animation:cmp-nudge 1.15s ease-in-out infinite; }
+    .cmp-hint.is-hidden { opacity:0; pointer-events:none; }
+  }
+  @keyframes cmp-nudge { 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(7px); } }
+  @media (prefers-reduced-motion: reduce){ .cmp-hint-arrow{ animation:none; } }
 </style>
 </head>
 <body>
@@ -259,6 +269,10 @@
 
       <!-- Сравнительная таблица тарифов – видно разницу одним взглядом. На мобильном горизонтальный скролл. -->
       <div data-reveal style="max-width:1000px; margin:0 auto 56px;">
+        <div class="cmp-hint" aria-hidden="true">
+          <span>Листайте вправо, чтобы сравнить тарифы</span>
+          <span class="cmp-hint-arrow">→</span>
+        </div>
         <div class="cmp-wrap">
           <table class="cmp">
             <thead>
@@ -978,6 +992,17 @@
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+  })();
+
+  /* ============ ПОДСКАЗКА «ЛИСТАЙТЕ ВПРАВО» ДЛЯ ТАБЛИЦЫ ТАРИФОВ ============ */
+  (function initCmpHint() {
+    var wrap = document.querySelector(".cmp-wrap");
+    var hint = document.querySelector(".cmp-hint");
+    if (!wrap || !hint) return;
+    // Прячем подсказку, как только пользователь пролистал таблицу вправо.
+    wrap.addEventListener("scroll", function () {
+      if (wrap.scrollLeft > 12) hint.classList.add("is-hidden");
+    }, { passive: true });
   })();
 
   /* ============ REVEAL ON SCROLL (static section blocks + one-time cards) ============ */
