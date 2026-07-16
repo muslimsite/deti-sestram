@@ -88,9 +88,6 @@
     /* убираем лишний воздух сверху/снизу и между блоками */
     .hero { padding-top: 2.75rem !important; padding-bottom: 3.25rem !important; }
     .hero-inner { gap: 20px !important; }
-    /* информационные пилюли — на всю ширину, текст не дробится в столбики */
-    .hero-badges { flex-direction: column; width: 100%; gap: 8px; }
-    .hero-badge { width: 100%; justify-content: center; }
   }
 
   /* ============ ТАЙМЕР ============ */
@@ -172,18 +169,6 @@
       <div style="display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:6px;">
         <a class="btn btn--lg" href="#tarif">Выбрать тариф</a>
         <a class="btn btn--lg btn--dark" href="#pro">Посмотреть программу</a>
-      </div>
-
-      <!-- Рассрочка + соцдоказательство -->
-      <div class="hero-badges" style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center; margin-top:10px;">
-        <span class="hero-badge" style="display:inline-flex; align-items:center; gap:9px; padding:9px 18px; border:1px solid var(--line-gold); border-radius:var(--radius-pill); background:rgba(199,168,107,.09); font-size:.9rem; color:var(--text-on-dark);">
-          <span style="width:8px; height:8px; background:var(--gold-gradient); transform:rotate(45deg); display:block; flex:none;"></span>
-          Шариатская рассрочка <strong style="color:var(--gold-500); font-weight:700;">от 3 750 ₽/мес</strong> — без процентов
-        </span>
-        <span class="hero-badge" style="display:inline-flex; align-items:center; gap:9px; padding:9px 18px; border:1px solid var(--line-on-dark); border-radius:var(--radius-pill); font-size:.9rem; color:var(--text-on-dark-muted);">
-          <span style="width:8px; height:8px; background:var(--gold-gradient); transform:rotate(45deg); display:block; flex:none;"></span>
-          Более <strong style="color:var(--gold-500); font-weight:700;">4 000</strong> учениц
-        </span>
       </div>
 
       <!-- Таймер обратного отсчёта. Дата задаётся в data-deadline (МСК). Для следующего потока меняйте только её. -->
