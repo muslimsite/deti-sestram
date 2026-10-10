@@ -293,7 +293,6 @@
               <tr><td>Курс внутри курса</td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Бонусные уроки от приглашённых спикеров</td><td><span class="no">–</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Более 5 важных уроков</td><td><span class="no">–</span></td><td><span class="no">–</span></td><td><span class="yes">◆</span></td></tr>
-              <tr><td>Живой вебинар вопрос-ответ с Солихой умм Муса</td><td><span class="no">–</span></td><td><span class="no">–</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Секретные бонусы</td><td><span class="no">–</span></td><td><span class="no">–</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Длительность</td><td>4 мес.</td><td>4,5 мес.</td><td>5 мес.</td></tr>
               <tr><td>Доступ к урокам до</td><td>20.03.2027</td><td>26.05.2027</td><td>26.05.2027</td></tr>
@@ -391,7 +390,7 @@
         <details class="faq-item" data-reveal>
           <summary>Какой тариф выбрать, если я беру курс впервые?</summary>
           <div class="faq-body">
-            Большинство сестёр выбирают <strong>Магистр</strong> – в нём есть живой вебинар с автором, бонусные уроки
+            Большинство сестёр выбирают <strong>Магистр</strong> – в нём есть бонусные уроки
             от приглашённых спикеров и секретные бонусы. <strong>Бакалавр</strong> – все 6 модулей и отдельный чат
             с кураторами-мотиваторами. <strong>Абитуриент</strong> – 4 основных модуля и общий чат «болталка»;
             модули «Основные принципы воспитания детей в большой семье» и «Обучение детей» в него не входят.
@@ -400,11 +399,10 @@
         </details>
 
         <details class="faq-item" data-reveal>
-          <summary>Есть ли обратная связь и можно ли задать вопрос автору?</summary>
+          <summary>Есть ли обратная связь?</summary>
           <div class="faq-body">
-            Задать вопрос автору можно на тарифе <strong>Магистр</strong> – там проходит живой вебинар
-            вопрос-ответ с Солихой умм Муса в мини-группе, где разбирается каждый вопрос учениц.
-            На тарифе <strong>Бакалавр</strong> вебинара нет, но есть отдельный чат с кураторами-мотиваторами.
+            На тарифе <strong>Магистр</strong> есть отдельный мини-чат с кураторами-мотиваторами,
+            на тарифе <strong>Бакалавр</strong> – отдельный чат с кураторами-мотиваторами.
             На тарифе <strong>Абитуриент</strong> – только общий чат «болталка», единый для всех потоков.
           </div>
         </details>
@@ -739,9 +737,9 @@
     "Каково быть мамой 9-ти детей? Вдохновение для многомам",
     "Урок от мамы «особенного» ребёнка",
   ];
-  var abCore = [M.m1, M.m2, M.m3, M.m4, { t: M.m5, off: true }, { t: M.m6, off: true }, M.chat, { t: M.miniCurators, off: true }, { t: "1 ВЕБИНАР вопрос-ответ с Солихой", off: true }];
-  var bakCore = [M.m1, M.m2, M.m3, M.m4, M.m5, M.m6, M.chat, M.curators, { t: "1 ВЕБИНАР вопрос-ответ с Солихой", off: true }];
-  var magCore = [M.m1, M.m2, M.m3, M.m4, M.m5, M.m6, M.chat, M.miniCurators, { webinar: true, prefix: "1 ВЕБИНАР", t: "вопрос-ответ с Солихой в мини-группе, на которых будет разобран КАЖДЫЙ вопрос учениц" }];
+  var abCore = [M.m1, M.m2, M.m3, M.m4, { t: M.m5, off: true }, { t: M.m6, off: true }, M.chat, { t: M.miniCurators, off: true }];
+  var bakCore = [M.m1, M.m2, M.m3, M.m4, M.m5, M.m6, M.chat, M.curators];
+  var magCore = [M.m1, M.m2, M.m3, M.m4, M.m5, M.m6, M.chat, M.miniCurators];
 
   var coreBullet = function (item) {
     var off = typeof item === "object" && item.off;
