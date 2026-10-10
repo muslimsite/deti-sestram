@@ -288,7 +288,7 @@
               <tr><td>Модуль «Основные принципы воспитания детей в большой семье»</td><td><span class="no">–</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Модуль «Обучение детей»</td><td><span class="no">–</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Чат «болталка» (общий для всех потоков)</td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
-              <tr><td>Отдельный чат с кураторами-мотиваторами</td><td><span class="no">–</span></td><td><span class="yes">◆</span></td><td>мини-чат</td></tr>
+              <tr><td>Записи эфиров вопрос-ответ за все потоки</td><td><span class="no">–</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>1 100 стр. дополнительных материалов</td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Курс внутри курса</td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Бонусные уроки от приглашённых спикеров</td><td><span class="no">–</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
@@ -391,8 +391,8 @@
           <summary>Какой тариф выбрать, если я беру курс впервые?</summary>
           <div class="faq-body">
             Большинство сестёр выбирают <strong>Магистр</strong> – в нём есть бонусные уроки
-            от приглашённых спикеров и секретные бонусы. <strong>Бакалавр</strong> – все 6 модулей и отдельный чат
-            с кураторами-мотиваторами. <strong>Абитуриент</strong> – 4 основных модуля и общий чат «болталка»;
+            от приглашённых спикеров и секретные бонусы. <strong>Бакалавр</strong> – все 6 модулей и записи эфиров
+            вопрос-ответ за все потоки. <strong>Абитуриент</strong> – 4 основных модуля и общий чат «болталка»;
             модули «Основные принципы воспитания детей в большой семье» и «Обучение детей» в него не входят.
             Сравнить тарифы построчно можно в таблице выше.
           </div>
@@ -401,8 +401,8 @@
         <details class="faq-item" data-reveal>
           <summary>Есть ли обратная связь?</summary>
           <div class="faq-body">
-            На тарифе <strong>Магистр</strong> есть отдельный мини-чат с кураторами-мотиваторами,
-            на тарифе <strong>Бакалавр</strong> – отдельный чат с кураторами-мотиваторами.
+            На тарифах <strong>Магистр</strong> и <strong>Бакалавр</strong> есть записи эфиров вопрос-ответ
+            за все потоки – в них разобраны вопросы учениц.
             На тарифе <strong>Абитуриент</strong> – только общий чат «болталка», единый для всех потоков.
           </div>
         </details>
@@ -714,8 +714,7 @@
     m5: "Модуль «Основные принципы воспитания детей в большой семье»",
     m6: "Модуль «Обучение детей»",
     chat: "Чат «болталка»",
-    curators: "Отдельный чат с кураторами-мотиваторами",
-    miniCurators: "Отдельный мини-чат с кураторами-мотиваторами",
+    qaRecords: "Записи эфиров вопрос-ответ за все потоки",
   };
   var speakersBak = [
     "Устаза Умм Амира (Фикх воспитания детей)",
@@ -737,9 +736,9 @@
     "Каково быть мамой 9-ти детей? Вдохновение для многомам",
     "Урок от мамы «особенного» ребёнка",
   ];
-  var abCore = [M.m1, M.m2, M.m3, M.m4, { t: M.m5, off: true }, { t: M.m6, off: true }, M.chat, { t: M.miniCurators, off: true }];
-  var bakCore = [M.m1, M.m2, M.m3, M.m4, M.m5, M.m6, M.chat, M.curators];
-  var magCore = [M.m1, M.m2, M.m3, M.m4, M.m5, M.m6, M.chat, M.miniCurators];
+  var abCore = [M.m1, M.m2, M.m3, M.m4, { t: M.m5, off: true }, { t: M.m6, off: true }, M.chat, { t: M.qaRecords, off: true }];
+  var bakCore = [M.m1, M.m2, M.m3, M.m4, M.m5, M.m6, M.chat, M.qaRecords];
+  var magCore = [M.m1, M.m2, M.m3, M.m4, M.m5, M.m6, M.chat, M.qaRecords];
 
   var coreBullet = function (item) {
     var off = typeof item === "object" && item.off;
