@@ -287,8 +287,8 @@
               <tr><td>Модуль «Обучение детей»</td><td><span class="no">–</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Чат «болталка» (общий для всех потоков)</td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Записи эфиров вопрос-ответ за все потоки</td><td><span class="no">–</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
-              <tr><td>1 100 стр. дополнительных материалов</td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
-              <tr><td>Курс внутри курса</td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
+              <tr><td>1 100 стр. дополнительных материалов</td><td><span class="no">–</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
+              <tr><td>Курс внутри курса</td><td><span class="no">–</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Бонусные уроки от приглашённых спикеров</td><td><span class="no">–</span></td><td><span class="yes">◆</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Более 5 важных уроков</td><td><span class="no">–</span></td><td><span class="no">–</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Секретные бонусы</td><td><span class="no">–</span></td><td><span class="no">–</span></td><td><span class="yes">◆</span></td></tr>
@@ -391,7 +391,8 @@
             Большинство сестёр выбирают <strong>Магистр</strong> – в нём есть бонусные уроки
             от приглашённых спикеров и секретные бонусы. <strong>Бакалавр</strong> – все 6 модулей и записи эфиров
             вопрос-ответ за все потоки. <strong>Абитуриент</strong> – 4 основных модуля и общий чат «болталка»;
-            модули «Основные принципы воспитания детей в большой семье» и «Обучение детей» в него не входят.
+            модули «Основные принципы воспитания детей в большой семье» и «Обучение детей», курс внутри курса
+            и 1 100 стр. дополнительных материалов в него не входят.
             Сравнить тарифы построчно можно в таблице выше.
           </div>
         </details>
@@ -713,6 +714,8 @@
     m6: "Модуль «Обучение детей»",
     chat: "Чат «болталка»",
     qaRecords: "Записи эфиров вопрос-ответ за все потоки",
+    extra: "1 100 стр. дополнительных материалов",
+    cic: "Курс внутри курса",
   };
   var speakersBak = [
     "Устаза Умм Амира (Фикх воспитания детей)",
@@ -734,9 +737,9 @@
     "Каково быть мамой 9-ти детей? Вдохновение для многомам",
     "Урок от мамы «особенного» ребёнка",
   ];
-  var abCore = [M.m1, M.m2, M.m3, M.m4, { t: M.m5, off: true }, { t: M.m6, off: true }, M.chat, { t: M.qaRecords, off: true }];
-  var bakCore = [M.m1, M.m2, M.m3, M.m4, M.m5, M.m6, M.chat, M.qaRecords];
-  var magCore = [M.m1, M.m2, M.m3, M.m4, M.m5, M.m6, M.chat, M.qaRecords];
+  var abCore = [M.m1, M.m2, M.m3, M.m4, { t: M.m5, off: true }, { t: M.m6, off: true }, M.chat, { t: M.qaRecords, off: true }, { t: M.extra, off: true }, { t: M.cic, off: true }];
+  var bakCore = [M.m1, M.m2, M.m3, M.m4, M.m5, M.m6, M.chat, M.qaRecords, M.extra, M.cic];
+  var magCore = [M.m1, M.m2, M.m3, M.m4, M.m5, M.m6, M.chat, M.qaRecords, M.extra, M.cic];
 
   var coreBullet = function (item) {
     var off = typeof item === "object" && item.off;
