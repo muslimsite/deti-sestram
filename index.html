@@ -107,6 +107,12 @@
 
   /* ============ ТАБЛИЦА СРАВНЕНИЯ ТАРИФОВ ============ */
   .cmp-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:var(--radius-lg); border:1px solid var(--line-on-dark); }
+  .cur-switch { display:inline-flex; gap:4px; padding:4px; border:1px solid var(--line-on-dark); border-radius:var(--radius-pill); background:rgba(199,168,107,.06); }
+  .cur-switch button { font:inherit; font-size:.95rem; font-weight:600; min-width:48px; min-height:40px; padding:6px 14px; border:0; border-radius:var(--radius-pill); background:transparent; color:var(--text-on-dark-muted); cursor:pointer; transition:background .2s, color .2s; }
+  .cur-switch button:hover { color:var(--gold-500); }
+  .cur-switch button[aria-pressed="true"] { background:var(--gold-gradient); color:#26180A; }
+  .cur-switch button:focus-visible { outline:2px solid var(--gold-500); outline-offset:2px; }
+  .cur-note { margin:0; font-size:.8rem; line-height:1.5; color:var(--text-on-dark-muted); max-width:520px; }
   .cmp { width:100%; border-collapse:collapse; min-width:620px; font-size:.94rem; }
   .cmp th, .cmp td { padding:16px 18px; text-align:center; border-bottom:1px solid var(--line-on-dark); }
   .cmp th:first-child, .cmp td:first-child { text-align:left; color:var(--text-on-dark); font-weight:500; }
@@ -191,7 +197,7 @@
           <div class="cd-cell"><div class="cd-num" data-cd="s">--</div><div class="cd-lab">секунд</div></div>
         </div>
         <p style="margin:0; font-size:.85rem; color:var(--text-on-dark-muted);">
-          Действует скидка до <strong style="color:var(--gold-500);">3 000 ₽</strong> – после старта цена вернётся к полной
+          Действует скидка до <strong style="color:var(--gold-500);" data-rub="3000">3 000 ₽</strong> – после старта цена вернётся к полной
         </p>
       </div>
     </div>
@@ -263,6 +269,14 @@
         <span class="pill pill--onDark">Тарифы</span>
         <h2 style="font-family:var(--font-display); font-weight:700; font-size:var(--fs-display-2); line-height:1.12; margin:0;">Выберите <span style="font-style:italic; color:var(--gold-500);">свой формат</span></h2>
         <span class="orn orn--dark" style="width:150px"><i class="l l1"></i><i class="d"></i><i class="l l2"></i></span>
+        <!-- Переключатель валют. Курсы задаются в CUR_RATES в скрипте внизу страницы. -->
+        <div class="cur-switch" role="group" aria-label="Валюта цен">
+          <button type="button" data-cur="RUB" aria-pressed="true">₽</button>
+          <button type="button" data-cur="KZT" aria-pressed="false">₸</button>
+          <button type="button" data-cur="EUR" aria-pressed="false">€</button>
+          <button type="button" data-cur="USD" aria-pressed="false">$</button>
+        </div>
+        <p class="cur-note" id="cur-note" hidden>Оплата проходит в рублях. Суммы в другой валюте примерные – по курсу ЦБ РФ на <span id="cur-date"></span>, банк может пересчитать немного иначе.</p>
       </div>
 
       <!-- Сравнительная таблица тарифов – видно разницу одним взглядом. На мобильном горизонтальный скролл. -->
@@ -294,12 +308,12 @@
               <tr><td>Секретные бонусы</td><td><span class="no">–</span></td><td><span class="no">–</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Длительность</td><td>4 мес.</td><td>4,5 мес.</td><td>5 мес.</td></tr>
               <tr><td>Доступ к урокам до</td><td>20.03.2027</td><td>26.05.2027</td><td>26.05.2027</td></tr>
-              <tr><td>Рассрочка без процентов</td><td>от 3 750 ₽/мес</td><td>от 3 800 ₽/мес</td><td>от 4 900 ₽/мес</td></tr>
+              <tr><td>Рассрочка без процентов</td><td>от <span data-rub="3750" data-per="/мес">3 750 ₽/мес</span></td><td>от <span data-rub="3800" data-per="/мес">3 800 ₽/мес</span></td><td>от <span data-rub="4900" data-per="/мес">4 900 ₽/мес</span></td></tr>
               <tr>
                 <td style="font-weight:700;">Стоимость до 20 июля</td>
-                <td class="row-price"><span style="display:block; font-family:var(--font-body); font-size:.8rem; font-weight:400; text-decoration:line-through; color:var(--text-on-dark-muted);">16 900 ₽</span>14 900 ₽</td>
-                <td class="row-price"><span style="display:block; font-family:var(--font-body); font-size:.8rem; font-weight:400; text-decoration:line-through; color:var(--text-on-dark-muted);">19 900 ₽</span>16 900 ₽</td>
-                <td class="row-price" style="color:var(--gold-500);"><span style="display:block; font-family:var(--font-body); font-size:.8rem; font-weight:400; text-decoration:line-through; color:var(--text-on-dark-muted);">24 900 ₽</span>21 900 ₽</td>
+                <td class="row-price"><span style="display:block; font-family:var(--font-body); font-size:.8rem; font-weight:400; text-decoration:line-through; color:var(--text-on-dark-muted);" data-rub="16900">16 900 ₽</span><span data-rub="14900">14 900 ₽</span></td>
+                <td class="row-price"><span style="display:block; font-family:var(--font-body); font-size:.8rem; font-weight:400; text-decoration:line-through; color:var(--text-on-dark-muted);" data-rub="19900">19 900 ₽</span><span data-rub="16900">16 900 ₽</span></td>
+                <td class="row-price" style="color:var(--gold-500);"><span style="display:block; font-family:var(--font-body); font-size:.8rem; font-weight:400; text-decoration:line-through; color:var(--text-on-dark-muted);" data-rub="24900">24 900 ₽</span><span data-rub="21900">21 900 ₽</span></td>
               </tr>
             </tbody>
           </table>
@@ -497,7 +511,7 @@
   <!-- ============ ЛИПКАЯ КНОПКА НА МОБИЛЬНОМ ============ -->
   <div id="sticky-cta">
     <a href="#tarif">
-      <span>Выбрать тариф <small>от 3 750 ₽/мес без процентов</small></span>
+      <span>Выбрать тариф <small>от <span data-rub="3750" data-per="/мес">3 750 ₽/мес</span> без процентов</small></span>
     </a>
   </div>
 
@@ -782,6 +796,7 @@
   };
   var buildFeatures = function (blocks) { return h("div", { style: { display: "flex", flexDirection: "column", gap: "20px" } }, blocks); };
 
+  var rubNum = function (str) { return String(str).replace(/\D/g, ""); };
   var groupPlan = function (plan) {
     var groups = [];
     plan.forEach(function (amt, i) {
@@ -801,8 +816,8 @@
       ),
       h("div", { style: { display: "flex", alignItems: "baseline", gap: "6px", flexWrap: "nowrap", whiteSpace: "nowrap" } },
         h("span", { style: { fontSize: "1rem", color: "var(--text-on-dark-muted)" } }, "всего"),
-        h("span", { style: { fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(2rem, 6vw, 2.6rem)", lineHeight: 1, color: "var(--gold-500)", whiteSpace: "nowrap" } }, monthly),
-        h("span", { style: { fontSize: "1.1rem", fontWeight: 600, color: "var(--gold-500)", whiteSpace: "nowrap" } }, "₽/мес")
+        h("span", { style: { fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(2rem, 6vw, 2.6rem)", lineHeight: 1, color: "var(--gold-500)", whiteSpace: "nowrap" }, "data-rub": rubNum(monthly), "data-nosym": "1" }, monthly),
+        h("span", { style: { fontSize: "1.1rem", fontWeight: 600, color: "var(--gold-500)", whiteSpace: "nowrap" }, "data-cur-sym": "1", "data-per": "/мес" }, "₽/мес")
       ),
       h("div", { style: { fontSize: ".82rem", color: "var(--text-on-dark)" } }, "Разбейте оплату на удобные платежи - без процентов."),
       h("div", { style: { borderTop: "1px solid var(--line-gold)", paddingTop: "12px", display: "flex", flexDirection: "column", gap: "8px" } },
@@ -810,7 +825,7 @@
         groupPlan(plan).map(function (g) {
           return h("div", { style: { display: "flex", justifyContent: "space-between", gap: "10px", fontSize: ".9rem", color: "var(--text-on-dark)" } },
             h("span", { style: { color: "var(--text-on-dark-muted)" } }, g.label),
-            h("span", { style: { fontWeight: 600 } }, g.amt + " ₽")
+            h("span", { style: { fontWeight: 600 }, "data-rub": rubNum(g.amt) }, g.amt + " ₽")
           );
         })
       )
@@ -843,11 +858,11 @@
           h("div", { style: { display: "flex", flexDirection: "column", gap: "6px" } },
             h("span", { style: { fontSize: ".78rem", letterSpacing: ".1em", textTransform: "uppercase", color: "var(--text-on-dark-muted)" } }, "Полная стоимость"),
             h("span", { style: { display: "flex", alignItems: "baseline", gap: "10px", flexWrap: "wrap" } },
-              h("span", { style: { fontSize: "1rem", color: "var(--text-on-dark-muted)", textDecoration: "line-through", opacity: .7 } }, t.oldPrice + " ₽"),
+              h("span", { style: { fontSize: "1rem", color: "var(--text-on-dark-muted)", textDecoration: "line-through", opacity: .7 }, "data-rub": rubNum(t.oldPrice) }, t.oldPrice + " ₽"),
               h("span", { style: { whiteSpace: "nowrap" } },
-                h("span", { style: { fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "2.4rem", lineHeight: 1, color: "var(--text-on-dark)" } }, t.price),
+                h("span", { style: { fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "2.4rem", lineHeight: 1, color: "var(--text-on-dark)" }, "data-rub": rubNum(t.price), "data-nosym": "1" }, t.price),
                 " ",
-                h("span", { style: { fontSize: "1.1rem", color: "var(--gold-500)" } }, "₽")
+                h("span", { style: { fontSize: "1.1rem", color: "var(--gold-500)" }, "data-cur-sym": "1" }, "₽")
               )
             )
           ),
@@ -1024,6 +1039,54 @@
     wrap.addEventListener("scroll", function () {
       if (wrap.scrollLeft > 12) hint.classList.add("is-hidden");
     }, { passive: true });
+  })();
+
+  /* ============ ВАЛЮТА ============ */
+  // Цены на сайте заданы в рублях; остальные валюты пересчитываются по курсу ЦБ РФ.
+  // Чтобы обновить курс, поменяйте цифры (сколько рублей за 1 единицу) и дату.
+  var CUR_RATES = { KZT: 0.184123, EUR: 93.7187, USD: 83.6177 };
+  var CUR_DATE = "17.10.2026";
+  var CUR_SYM = { RUB: "₽", KZT: "₸", EUR: "€", USD: "$" };
+  (function currency() {
+    var buttons = document.querySelectorAll(".cur-switch [data-cur]");
+    var note = document.getElementById("cur-note");
+    var dateEl = document.getElementById("cur-date");
+    if (dateEl) dateEl.textContent = CUR_DATE;
+    var group = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0"); };
+    var convert = function (rub, cur) {
+      if (cur === "RUB") return rub;
+      var v = rub / CUR_RATES[cur];
+      if (cur === "KZT") return v >= 10000 ? Math.round(v / 100) * 100 : Math.round(v / 10) * 10;
+      return Math.round(v);
+    };
+    var apply = function (cur) {
+      var approx = cur === "RUB" ? "" : "≈\u00a0";
+      document.querySelectorAll("[data-rub]").forEach(function (el) {
+        var rub = Number(el.getAttribute("data-rub"));
+        if (!rub) return;
+        var per = el.getAttribute("data-per") || "";
+        var num = approx + group(convert(rub, cur));
+        el.textContent = el.hasAttribute("data-nosym") ? num : num + "\u00a0" + CUR_SYM[cur] + per;
+      });
+      document.querySelectorAll("[data-cur-sym]").forEach(function (el) {
+        el.textContent = CUR_SYM[cur] + (el.getAttribute("data-per") || "");
+      });
+      buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-cur") === cur)); });
+      if (note) note.hidden = cur === "RUB";
+      try { localStorage.setItem("cur", cur); } catch (e) {}
+    };
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () { apply(b.getAttribute("data-cur")); });
+    });
+    var saved = null;
+    try { saved = localStorage.getItem("cur"); } catch (e) {}
+    if (!CUR_SYM[saved]) {
+      // Для посетителей из Казахстана сразу показываем тенге.
+      var tz = "";
+      try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) {}
+      saved = /^Asia\/(Almaty|Qostanay|Qyzylorda|Aqtobe|Aqtau|Oral|Atyrau)$/.test(tz) ? "KZT" : "RUB";
+    }
+    if (saved !== "RUB") apply(saved);
   })();
 
   /* ============ REVEAL ON SCROLL (static section blocks + one-time cards) ============ */
