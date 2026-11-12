@@ -307,7 +307,6 @@
               <tr><td>Более 5 важных уроков</td><td><span class="no">–</span></td><td><span class="no">–</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Секретные бонусы</td><td><span class="no">–</span></td><td><span class="no">–</span></td><td><span class="yes">◆</span></td></tr>
               <tr><td>Длительность</td><td>4 мес.</td><td>4,5 мес.</td><td>5 мес.</td></tr>
-              <tr><td>Доступ к урокам до</td><td>20.03.2027</td><td>26.05.2027</td><td>26.05.2027</td></tr>
               <tr><td>Рассрочка без процентов</td><td>от <span data-rub="3750" data-per="/мес">3 750 ₽/мес</span></td><td>от <span data-rub="3800" data-per="/мес">3 800 ₽/мес</span></td><td>от <span data-rub="4900" data-per="/мес">4 900 ₽/мес</span></td></tr>
               <tr>
                 <td style="font-weight:700;">Стоимость до 20 июля</td>
@@ -367,8 +366,7 @@
           <summary>А если я не успею смотреть уроки вовремя?</summary>
           <div class="faq-body">
             Ничего страшного. Все уроки записаны заранее и доступны в любое время – вы учитесь в своём темпе,
-            когда дети спят или в свободную минуту. Доступ к материалам сохраняется до марта 2027 г. (Абитуриент)
-            или до мая 2027 г. (Бакалавр и Магистр), так что вы спокойно вернётесь к любому модулю.
+            когда дети спят или в свободную минуту, и спокойно возвращаетесь к любому модулю.
           </div>
         </details>
 
@@ -833,9 +831,9 @@
   };
 
   var tariffsBase = [
-    { name: "АБИТУРИЕНТ", price: "14 900", oldPrice: "16 900", term: "4 мес.", access: "Доступ к урокам - до 20 марта 2027 г.", fullUrl: "https://monecle.com/buy/95843", installUrl: "https://monecle.com/buy/96187", features: function () { return buildFeatures([coreSection(abCore)]); }, install: function () { return installEl("4 месяца", "3 750", ["3 750", "3 750", "3 750", "3 650"]); } },
-    { name: "БАКАЛАВР", price: "16 900", oldPrice: "19 900", term: "4,5 мес.", access: "Доступ к урокам - до 26 мая 2027 г.", fullUrl: "https://monecle.com/buy/92372", installUrl: "https://monecle.com/buy/96183", features: function () { return buildFeatures([coreSection(bakCore), bakBonus()]); }, install: function () { return installEl("4,5 месяца", "3 800", ["3 800", "3 800", "3 800", "3 800", "1 700"]); } },
-    { name: "МАГИСТР", price: "21 900", oldPrice: "24 900", term: "5 мес.", access: "Доступ к урокам - до 26 мая 2027 г.", fullUrl: "https://monecle.com/buy/92370", installUrl: "https://monecle.com/buy/96180", features: function () { return buildFeatures([coreSection(magCore), magBonus()]); }, install: function () { return installEl("4,5 месяца", "4 900", ["4 900", "4 900", "4 900", "4 900", "2 300"]); } },
+    { name: "АБИТУРИЕНТ", price: "14 900", oldPrice: "16 900", term: "4 мес.", fullUrl: "https://monecle.com/buy/95843", installUrl: "https://monecle.com/buy/96187", features: function () { return buildFeatures([coreSection(abCore)]); }, install: function () { return installEl("4 месяца", "3 750", ["3 750", "3 750", "3 750", "3 650"]); } },
+    { name: "БАКАЛАВР", price: "16 900", oldPrice: "19 900", term: "4,5 мес.", fullUrl: "https://monecle.com/buy/92372", installUrl: "https://monecle.com/buy/96183", features: function () { return buildFeatures([coreSection(bakCore), bakBonus()]); }, install: function () { return installEl("4,5 месяца", "3 800", ["3 800", "3 800", "3 800", "3 800", "1 700"]); } },
+    { name: "МАГИСТР", price: "21 900", oldPrice: "24 900", term: "5 мес.", fullUrl: "https://monecle.com/buy/92370", installUrl: "https://monecle.com/buy/96180", features: function () { return buildFeatures([coreSection(magCore), magBonus()]); }, install: function () { return installEl("4,5 месяца", "4 900", ["4 900", "4 900", "4 900", "4 900", "2 300"]); } },
   ];
   var highlightTier = "МАГИСТР";
   (function renderTariffs() {
@@ -871,8 +869,7 @@
             h("a", { class: "btn btn--block", href: t.fullUrl, target: "_blank", rel: "noopener" }, "Полная оплата"),
             h("p", { style: { margin: "2px 0 0", fontSize: ".72rem", lineHeight: 1.4, color: "var(--text-on-dark-muted)", opacity: .85 } }, "Оплачивая рассрочкой, вы обязуетесь выплатить полную стоимость курса, но по частям."),
             h("a", { class: "btn btn--block btn--dark", href: t.installUrl, target: "_blank", rel: "noopener" }, "Рассрочка")
-          ),
-          h("p", { style: { margin: 0, textAlign: "center", fontSize: ".78rem", letterSpacing: ".02em", color: "var(--text-on-dark-muted)" } }, t.access)
+          )
         )
       );
       grid.appendChild(card);
